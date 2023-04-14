@@ -1,0 +1,15 @@
+<div class="attempt-container" *ngIf="test">
+    <h1>{{test.name}}</h1>
+    <div class="test-task" *ngFor="let task of test.tasks let i = index">
+        <h3 class="task-title">{{i + 1}}. {{task.description}}</h3>
+        <h3 class="task-title">{{task.question}}</h3>
+
+        <div class="form-container" [ngSwitch]="task.type">
+            <multiple-choice *ngSwitchCase="1" [task]="task" [taskForm]="getTask(i)"></multiple-choice>
+            <open-task *ngSwitchCase="3" [task]="task" [taskForm]="getTask(i)"></open-task>
+        </div>
+    </div>
+    <button mat-button (click)="onSubmit()">
+        Submit Answer
+    </button>
+</div>

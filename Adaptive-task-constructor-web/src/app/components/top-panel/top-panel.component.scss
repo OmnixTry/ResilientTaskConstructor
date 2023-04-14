@@ -1,0 +1,22 @@
+.navbar {
+    padding-left: 16px;
+    flex-wrap: nowrap;
+
+    .navbar-collapse{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.left-btns{
+    flex-wrap: nowrap;
+    flex-direction: row;
+}   
+.nav-link{
+    padding: 8px;
+}
+
+nav.navbar {
+    padding-bottom: 0.25rem;
+    padding-top: 0.25rem;
+}

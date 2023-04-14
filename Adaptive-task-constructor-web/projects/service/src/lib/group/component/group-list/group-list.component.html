@@ -1,0 +1,4 @@
+<ui-selective-list
+    [list]="groupService.groupList | async"
+    (groupSelected)="onGroupSelect($event)">
+</ui-selective-list>

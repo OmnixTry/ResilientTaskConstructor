@@ -1,0 +1,18 @@
+:host ::ng-deep .top-row .mat-form-field-wrapper {
+    padding: 0px;
+}
+
+.top-row-header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.row {
+    flex-wrap: nowrap;
+}
+
+.half {
+    //flex-grow: 1;
+    width: 50%;
+}

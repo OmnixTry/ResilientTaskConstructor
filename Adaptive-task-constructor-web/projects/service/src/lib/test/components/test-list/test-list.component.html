@@ -1,0 +1,17 @@
+<form [formGroup]="searchForm">
+    <mat-form-field>
+        <mat-label>Search test by name</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Search test by topic</mat-label>
+        <input matInput formControlName="topic">
+    </mat-form-field>    
+</form>
+<ui-selective-list
+    [list]="searchResult | async"
+    secondaryField="topic"
+    (groupSelected)="onTestSelected($event)">
+
+</ui-selective-list>
+

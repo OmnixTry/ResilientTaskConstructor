@@ -1,0 +1,8 @@
+﻿CREATE TABLE [grp].[GroupTest]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[GroupId] INT NOT NULL FOREIGN KEY REFERENCES [grp].[Group](Id) ON DELETE CASCADE,
+	[TestId] INT NOT NULL FOREIGN KEY REFERENCES [test].[Test](Id),
+
+	CONSTRAINT UC_GroupTest UNIQUE ([GroupId], [TestId]) 
+)

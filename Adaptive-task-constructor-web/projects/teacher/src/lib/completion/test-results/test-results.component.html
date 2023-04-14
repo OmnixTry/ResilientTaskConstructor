@@ -1,0 +1,8 @@
+<div class="result-container">
+    <div class="student" *ngFor="let res of testResults">
+        <button mat-button class="stud-btn" (click)="onStudentClick(res)">
+            <span>{{res.student.firstName}} {{res.student.lastName}}</span>
+            <span>Score: {{res.attempt.score}}</span>
+        </button>
+    </div>
+</div>

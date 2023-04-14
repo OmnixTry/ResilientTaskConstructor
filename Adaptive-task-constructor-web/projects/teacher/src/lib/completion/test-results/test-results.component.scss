@@ -1,0 +1,19 @@
+.student {}
+
+:host ::ng-deep .stud-btn {
+    width: 100%;
+
+    .mat-button-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 12px;
+
+        width: 100%;
+    }
+}
+
+button {
+    border: 1px solid rgba(0, 0, 0, .125);
+
+}

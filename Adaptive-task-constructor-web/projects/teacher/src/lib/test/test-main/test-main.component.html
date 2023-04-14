@@ -1,0 +1,22 @@
+<div class="page">
+    <div class="left column">
+        <srvc-test-list (testSelected)="onTestSelected($event)" [startSearchImmediately]="true">
+        </srvc-test-list>
+    </div>
+    <div class="card right column" *ngIf="selectedTest">
+        <div class="control-row">
+            <button mat-button (click)="onDeleteClick()">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+            </button>
+            <button mat-button (click)="onEditClick()">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </div>
+        <div class="test-info">
+            <h2>{{selectedTest.name}}</h2>
+            <h3>Topic: {{ selectedTest.topic }}</h3>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="flex-row header">
+  <h3 class="field-container">Answers</h3>
+  <button mat-button (click)="onOptionAdd()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+<div class="answers">
+  <div class="answer" *ngFor="let answer of optionsControls; let i = index">
+    <form [formGroup]="answer">
+      <div class="flex-row">
+        <div class="field-container">
+          <lib-form-field [control]="answer.get('value')" label="" appearance="legacy">
+            <input type="text" matInput formControlName="value">
+          </lib-form-field>
+        </div>
+
+        <mat-checkbox *ngIf="!isOpenTask" formControlName="correct">
+          Correct
+        </mat-checkbox>
+        <button mat-button (click)="onDeleteClick(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </form>
+
+  </div>
+  <div *ngIf="areNoCorrect">
+    <p class="alert alert-warning">Make at least 1 correct value</p>
+  </div>
+</div>

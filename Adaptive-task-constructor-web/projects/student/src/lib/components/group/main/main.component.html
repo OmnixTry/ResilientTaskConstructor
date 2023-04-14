@@ -1,0 +1,53 @@
+<div class="page">
+    <div class="left column">
+        <h1>Your Groups</h1>
+        <ui-selective-list (groupSelected)="onGroupSelected($event)" [list]="groupList | async">
+        </ui-selective-list>
+    </div>
+    <div class="card right column" *ngIf="selectedGroup | async as group">
+        <div class="control-row">
+            <!-- <button mat-button (click)="onDeleteClick()">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+            </button>
+            <button mat-button (click)="onEditClick()">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button> -->
+        </div>
+        <div class="test-info">
+            <h2>{{group.name}}</h2>
+
+            <h3>Tests</h3>
+
+            <table mat-table [dataSource]="group.tests" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="start">
+                    <th mat-header-cell *matHeaderCellDef> Start </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-button (click)="onTakeTestClick(element)">
+                            <mat-icon>spellcheck</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="results">
+                    <th mat-header-cell *matHeaderCellDef> Results </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-button (click)="onViewResultsClick(element)">
+                            <mat-icon>view_list</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayColumns;"></tr>
+            </table>
+
+        </div>
+    </div>
+</div>

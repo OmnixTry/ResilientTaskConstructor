@@ -1,0 +1,16 @@
+<form [formGroup]="testForm" *ngIf="testForm">
+    <lib-form-field [control]="testForm.get('name')" label="Test Name">
+        <input type="text" matInput formControlName="name">
+    </lib-form-field>
+    <lib-form-field [control]="testForm.get('topic')" label="Topic">
+        <input type="text" matInput formControlName="topic">
+    </lib-form-field>
+    <div class="tasks">
+        <h3 class="task-header">Tasks</h3>
+        <div class="task card" *ngFor="let testTask of tasks">
+            <task-general [taskForm]="testTask">
+
+            </task-general>
+        </div>
+    </div>
+</form>

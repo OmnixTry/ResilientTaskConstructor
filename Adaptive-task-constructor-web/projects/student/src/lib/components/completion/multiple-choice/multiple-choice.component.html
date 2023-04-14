@@ -1,0 +1,14 @@
+<div class="options-container">
+    <div class="multiple-options-container" *ngIf="task.allowMultiple">
+        <li class="option" *ngFor="let option of task.taskOptions">
+            <mat-checkbox (change)="onCheckChange($event, option)">{{option.value}}</mat-checkbox>
+        </li>
+    </div>
+    <mat-radio-group aria-label="Select an option" *ngIf="!task.allowMultiple" (change)="onRadioChange($event)">
+        <li *ngFor="let option of task.taskOptions" style="list-style-type: none; margin-bottom: 6px;">
+            <mat-radio-button [value]="option">{{ option.value }}</mat-radio-button>
+        </li>
+    </mat-radio-group>
+
+
+</div>

@@ -1,0 +1,14 @@
+<div class="list-container">
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-action" *ngFor="let group of _list let i = index"
+            [ngClass]="{ 'active': isSelected(i)}">
+            <button mat-button class="button-list" (click)="onItemClick(group, i)">
+                <div class="button-row">
+                    <p>{{ group[displayField] }}</p>
+                    <p class="secondary" *ngIf="!!secondaryField">{{ group[secondaryField] }}</p>
+                </div>
+            </button>
+        </li>
+        <li *ngIf="_list?.length == 0">Nothing here yet</li>
+    </ul>
+</div>

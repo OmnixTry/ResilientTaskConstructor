@@ -1,0 +1,40 @@
+.task-container {
+    border: 1px solid rgba(0, 0, 0, .125);
+    padding: 8px;
+
+    margin: 4px;
+
+    .task {
+        width: 80%;
+        display: inline;
+    }
+
+    .correct {
+        color: green;
+    }
+
+    .wrong {
+        color: red;
+    }
+
+    .task-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .answer-container {
+        padding-left: 8px;
+    }
+}
+
+.row-from {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    span {
+        margin-bottom: 12px;
+        margin-left: 6px;
+    }
+}

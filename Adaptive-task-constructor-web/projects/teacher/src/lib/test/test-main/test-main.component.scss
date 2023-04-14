@@ -1,0 +1,26 @@
+.page {
+    display: flex;
+    flex-direction: row;
+    height: calc(100% - 46px);
+
+    .left {
+        width: 50vw;
+        height: 100%;
+        overflow-y: auto;
+        padding-right: 12px;
+    }
+
+    .right {
+        height: 300px;
+        width: 400px;
+
+        &.card {
+            padding: 12px;
+        }
+
+        .control-row {
+            display: flex;
+            flex-direction: row-reverse;
+        }
+    }
+}

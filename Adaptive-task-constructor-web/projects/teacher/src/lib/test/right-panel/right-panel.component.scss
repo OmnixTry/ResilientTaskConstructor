@@ -1,0 +1,23 @@
+.task {
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    padding-left: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    margin-bottom: 8px;
+
+    p:last-child {
+        margin-bottom: 0px;
+    }
+
+    .data {
+        width: calc(100% - 168px);
+    }
+}

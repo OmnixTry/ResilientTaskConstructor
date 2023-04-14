@@ -1,0 +1,19 @@
+.top-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+}
+
+.task-header {
+    padding-left: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.task.card {
+    padding: 12px;
+}
+
+form {
+    padding-right: 12px;
+}

@@ -1,0 +1,13 @@
+<form [formGroup]="taskForm">
+  <lib-form-field [control]="taskForm.get('decription')" label="Description">
+    <input type="text" matInput formControlName="description">
+  </lib-form-field>
+  <lib-form-field [control]="taskForm.get('question')" label="Question">
+    <input type="text" matInput formControlName="question">
+  </lib-form-field>
+
+  <task-options [answersForm]="options" [isOpenTask]="false">
+  </task-options>
+
+
+</form>

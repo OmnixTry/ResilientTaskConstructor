@@ -1,0 +1,24 @@
+.flex-row {
+        display: flex;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+
+        .field-container{
+            flex-grow: 4;
+        }
+}
+
+h3 {
+    margin-bottom: 0px;
+}
+
+mat-checkbox {
+    margin-left: 16px;
+}
+
+.header {
+    border-bottom: 1px solid rgba(0,0,0,.125);;
+}

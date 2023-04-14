@@ -1,0 +1,48 @@
+<h1>Results of completing {{test?.name}}</h1>
+<h3 class="score">Overall score {{attempt?.score}} / {{maxScore}}</h3>
+<p class="date-label">{{attempt?.date | date}}</p>
+
+<div class="task-container" *ngFor="let task of test?.tasks let i = index">
+    <div class="task">
+        <div class="task-header-row">
+            <h3>{{i + 1}}. {{task.description}}</h3>
+            <div class="task-header-row">
+                <h3>Received score:</h3>
+                <form [formGroup]="getAttemptTaskForm(task.id)" class="row-from">
+                    <lib-form-field [control]="getAttemptTaskForm(task.id).get('score')">
+                        <input matInput formControlName="score" [disabled]="isReadMode">
+                    </lib-form-field>
+                    <span> / {{ task.score }}</span>
+                </form>
+            </div>
+
+        </div>
+        <h3>{{task.question}}</h3>
+        <div class="answer-container" [ngSwitch]="task.type">
+            <div class="multiple-choice" *ngSwitchCase="1">
+                <li class="option" *ngFor="let answer of getTaskAnswers(task.id)">
+                    <span [ngClass]="{ 'correct': answer.corect, 'wrong': !answer.corect }">
+                        {{ getOption(task.id, answer.taskOptionId).value }}
+                    </span>
+                </li>
+            </div>
+            <div class="open-task" *ngSwitchCase="3">
+                <li class="option" *ngFor="let answer of getTaskAnswers(task.id)">
+                    <span [ngClass]="{ 'correct': answer.corect, 'wrong': !answer.corect }">
+                        {{ !!answer.value ? answer.value : 'No value provided'}}
+                    </span>
+                </li>
+            </div>
+            <li class="option" *ngIf="!getTaskAnswers(task.id).length" class="wrong">
+                <span>
+                    {{'No value provided'}}
+                </span>
+            </li>
+        </div>
+    </div>
+</div>
+
+<button mat-button (click)="onSaveClick()" *ngIf="!isReadMode"
+    [disabled]="!attemptFrom?.touched || !attemptFrom?.valid">
+    Save Results
+</button>

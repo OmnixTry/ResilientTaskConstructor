@@ -1,0 +1,17 @@
+<div class="teacher-container">
+    <div class="list-container">
+        <div class="top" style="justify-content: space-between;">
+            <button mat-button class="add=btn" (click)="onCreateClick()">
+                <mat-icon>library_add</mat-icon>
+                <span>Create Group</span>
+            </button>
+            <h2 style="margin-bottom: 0px;">Groups</h2>
+        </div>
+        <div class="list">
+            <srvc-group-list (groupSelect)="onGroupSelect($event)"></srvc-group-list>
+        </div>
+    </div>
+    <div class="form-container">
+        <teach-group-edit-form></teach-group-edit-form>
+    </div>
+</div>

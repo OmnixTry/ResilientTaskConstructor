@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Client\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Component.Groups.BLL\Component.Groups.BLL.csproj" />
+    <ProjectReference Include="..\Component.Groups.DAL\Component.Groups.DAL.csproj" />
+    <ProjectReference Include="..\Component.Groups.PL\Component.Groups.PL.csproj" />
+    <ProjectReference Include="..\Component.TestCompetion.DAL\Component.TestCompletion.DAL.csproj" />
+    <ProjectReference Include="..\Component.TestCompletion.BLL\Component.TestCompletion.BLL.csproj" />
+    <ProjectReference Include="..\Component.TestCompletion.PL\Component.TestCompletion.PL.csproj" />
+    <ProjectReference Include="..\Component.TestManagement.BLL\Component.TestManagement.BLL.csproj" />
+    <ProjectReference Include="..\Component.TestManagement.DAL\Component.TestManagement.DAL.csproj" />
+    <ProjectReference Include="..\Component.TestManagement.PL\Component.TestManagement.PL.csproj" />
+    <ProjectReference Include="..\Infrastructure.DAL\Infrastructure.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

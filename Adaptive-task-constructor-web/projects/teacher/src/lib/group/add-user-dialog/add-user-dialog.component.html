@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>
+    Add Student to Group
+</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Search by user email</mat-label>
+        <input matInput [formControl]="emailInput">
+    </mat-form-field>
+
+    <ui-selective-list
+        [list]="userList | async"
+        displayField="email"
+        (groupSelected)="onUserSelected($event)">
+    </ui-selective-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">
+        Cancel
+    </button>
+    <button mat-button [mat-dialog-close]="selectedUser" [disabled]="!userId.valid">
+        Add
+    </button>
+    <mat-error>
+        <div *ngIf="!userId.valid">This useris already added!</div>
+    </mat-error>
+</div>
+

@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>
+    Add Test to Group
+</h1>
+<div mat-dialog-content>
+    <srvc-test-list (testSelected)="onTestSelected($event)">
+    </srvc-test-list>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">
+        Cancel
+    </button>
+    <button mat-button [mat-dialog-close]="selectedTest" [disabled]="!testForm.valid">
+        Add
+    </button>
+    <mat-error>
+        <div *ngIf="!testForm.valid">This test is already added!</div>
+    </mat-error>
+</div>

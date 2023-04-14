@@ -1,0 +1,24 @@
+<srvc-test-list (testSelected)="onTestSelected($event)" [excludeIds]="[test?.id]" *ngIf="!fullTest">
+
+</srvc-test-list>
+<div class="importer" *ngIf="!!fullTest">
+    <button mat-button (click)="onUnselect()" style="padding: 0px;">
+        <mat-icon>keyboard_backspace</mat-icon>
+        <span>
+            Back
+        </span>
+    </button>
+    <div class="test">
+        <h2>{{fullTest.name}}</h2>
+        <div class="task" *ngFor="let task of fullTest.tasks">
+            <div class="data">
+                <p>{{ task.description }}</p>
+                <p>{{ task.question }}</p>
+            </div>
+            <button mat-button (click)="onExportClick(task)">
+                Export to constructor
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,5 @@
+﻿CREATE TABLE [test].[TaskType]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Name] VARCHAR(40) NOT NULL UNIQUE,
+)

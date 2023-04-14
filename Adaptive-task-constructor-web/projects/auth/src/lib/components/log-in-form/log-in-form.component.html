@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Log In</h1>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group row">
+                <lib-form-field [control]="loginForm.get('email')" label="Email">
+                    <input matInput formControlName="email" email />
+                </lib-form-field>
+            </div>
+            <div class="form-group row">
+                <lib-form-field [control]="loginForm.get('password')" label="Password">
+                    <input matInput type="password" formControlName="password" />
+                </lib-form-field>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-5">
+                    <button type="submit" class="btn btn-info" [disabled]="!loginForm.valid">Log In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

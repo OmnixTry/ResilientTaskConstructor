@@ -1,0 +1,87 @@
+<div class="form-container" *ngIf="!!groupForm">
+  <div class="top">
+    <button mat-button (click)="onDeleteClick()" *ngIf="groupForm.value.id != 0">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+    <button mat-button (click)="onReturnClick()" *ngIf="groupForm.value.id == 0">
+      <mat-icon>keyboard_return</mat-icon>
+      <span>Return</span>
+    </button>
+    <button mat-button class="add-btn" (click)="onSaveClick()">
+      <mat-icon>save</mat-icon>
+      <span>Save</span>
+    </button>
+    <button mat-button (click)="onAddTestClick()">
+      <mat-icon>note_add</mat-icon>
+      <span>Add Test</span>
+    </button>
+    <button mat-button (click)="onAddStudentClick()">
+      <mat-icon>group_add</mat-icon>
+      <span>Add Student</span>
+    </button>
+  </div>
+
+  <form [formGroup]="groupForm">
+    <lib-form-field [control]="groupForm.get('name')" label="Group Name">
+      <input matInput formControlName="name" />
+    </lib-form-field>
+    <mat-tab-group>
+      <mat-tab label="Students">
+        <table mat-table [dataSource]="groupForm.value.students" class="mat-elevation-z8">
+          <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+          </ng-container>
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="onStudentDeleteClick(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="['firstName', 'lastName', 'email', 'delete']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['firstName', 'lastName', 'email', 'delete'];"></tr>
+        </table>
+      </mat-tab>
+      <mat-tab label="Tests">
+        <table mat-table [dataSource]="groupForm.value.tests" class="mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Test Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="results">
+            <th mat-header-cell *matHeaderCellDef> Results </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="onStudentResultsClick(element)">
+                <mat-icon>list</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="onTestDeleteClick(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="['name', 'results', 'delete']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['name', 'results', 'delete'];"></tr>
+        </table>
+      </mat-tab>
+    </mat-tab-group>
+  </form>
+</div>

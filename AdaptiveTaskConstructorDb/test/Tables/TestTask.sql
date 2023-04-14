@@ -1,0 +1,13 @@
+﻿CREATE TABLE [test].[TestTask]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
+	[TestId] INT NOT NULL FOREIGN KEY REFERENCES [test].[Test](Id) ON DELETE CASCADE,
+	[Type] INT NOT NULL FOREIGN KEY REFERENCES [test].[TaskType](Id),
+	[AnswerType] INT NOT NULL DEFAULT(1),
+	[Score] INT NOT NULL,
+	[Description] NVARCHAR(MAX) NOT NULL,
+	[Question] NVARCHAR(MAX) NOT NULL,
+	[GapIndex] INT NULL,
+	[GapText] NVARCHAR(MAX) NULL,
+	[AllowMultiple] BIT NOT NULL DEFAULT(0),
+)

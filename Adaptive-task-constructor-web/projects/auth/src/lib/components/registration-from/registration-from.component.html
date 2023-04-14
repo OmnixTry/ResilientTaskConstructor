@@ -1,0 +1,59 @@
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Register</h1>
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div class="form-group row">
+                <lib-form-field [control]="registrationForm.get('email')" label="Email">
+                    <input matInput formControlName="email" email />
+                </lib-form-field>
+            </div>
+            <div class="form-group row">
+                <lib-form-field [control]="registrationForm.get('firstName')" label="First Name"
+                    [errorMessages]="{'pattern': 'This field can only contain letters'}">
+                    <input matInput formControlName="firstName" />
+                </lib-form-field>
+            </div>
+            <div class="form-group row">
+                <lib-form-field [control]="registrationForm.get('lastName')" label="Last Name"
+                    [errorMessages]="{'pattern': 'This field can only contain letters'}">
+                    <input matInput formControlName="lastName" />
+                </lib-form-field>
+            </div>
+            <div class="form-group row">
+                <lib-form-field [control]="registrationForm.get('password')" label="Password"
+                    [errorMessages]="pwdErrorMessages">
+                    <input type="password" matInput formControlName="password" />
+                </lib-form-field>
+                <password-strength-meter [password]="registrationForm.get('password')?.value"
+                    (strengthChange)="onStrengthChange($event)"></password-strength-meter>
+            </div>
+            <div class="form-group row">
+                <lib-form-field [control]="registrationForm.get('confirmPassword')" label="Password Confirmation"
+                    [errorMessages]="{'notSame': 'Passwords must match'}">
+                    <input type="password" matInput formControlName="confirmPassword" />
+                </lib-form-field>
+            </div>
+            <div class="form-group row">
+                <lib-form-field [control]="registrationForm.get('role')" label="Role">
+                    <mat-select formControlName="role">
+                        <mat-option *ngFor="let role of roles | enumArrayPipe" [value]="role.value">
+                            {{ role.key }}
+                        </mat-option>
+                    </mat-select>
+                </lib-form-field>
+            </div>
+            <div class="alert alert-danger col-md-10" *ngIf="!!registrationErrors">
+                <p *ngFor="let error of registrationErrors">{{ error }}</p>
+            </div>
+            <br>
+            <div class="form-group row">
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-info" [disabled]="!registrationForm.valid">Register</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

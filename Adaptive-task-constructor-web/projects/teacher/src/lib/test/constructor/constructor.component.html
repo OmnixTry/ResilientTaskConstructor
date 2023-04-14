@@ -1,0 +1,24 @@
+<div class="split-container">
+    <div class="list-container half">
+        <div class="top-row">
+            <button mat-button (click)="onSaveClick()" [disabled]="isSaveDisabled()">
+                <mat-icon>save</mat-icon>
+                <span>Save</span>
+            </button>
+            <button mat-button (click)="onAddTaskClick()">
+                <mat-icon>playlist_add</mat-icon>
+                <span>Add Task</span>
+            </button>
+        </div>
+
+        <div class="list">
+            <test-edit-form [testForm]="testForm">
+            </test-edit-form>
+        </div>
+
+    </div>
+    <div class="half right">
+        <right-panel [test]="testForm?.value" (onExportTask)="onExportTask($event)">
+        </right-panel>
+    </div>
+</div>

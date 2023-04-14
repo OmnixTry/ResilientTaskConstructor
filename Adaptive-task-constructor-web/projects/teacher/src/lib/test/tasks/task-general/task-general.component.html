@@ -1,0 +1,43 @@
+<div class="test-contrainer" [ngSwitch]="taskType">
+  <div class="top-row-header">
+    <h3 style="flex-grow: 1;">Task {{ index + 1 }}</h3>
+    <div class="top-row" style="width: auto;">
+      <button mat-button (click)="onRemoveClick()">
+        <mat-icon>remove</mat-icon>
+        <span>Remove Task</span>
+      </button>
+
+    </div>
+
+
+  </div>
+  <form [formGroup]="taskForm">
+    <div class="row">
+      <div class="half">
+        <mat-form-field appearance="outline">
+          <mat-label>Question Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option [value]="taskTypeEnum.General">Open question</mat-option>
+            <mat-option [value]="taskTypeEnum.MultipleChoice">Multiple choice</mat-option>
+            <!-- <mat-option [value]="taskTypeEnum.OpenBrackets">Open brackets</mat-option> -->
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="half">
+        <lib-form-field [control]="taskForm.get('score')" label="Score">
+          <input type="number" matInput formControlName="score">
+        </lib-form-field>
+      </div>
+
+    </div>
+
+  </form>
+  <div *ngSwitchCase="taskTypeEnum.General">
+    <open-task [taskForm]="taskForm">
+    </open-task>
+  </div>
+  <div *ngSwitchCase="taskTypeEnum.MultipleChoice">
+    <quizz-task [taskForm]="taskForm">
+    </quizz-task>
+  </div>
+</div>
