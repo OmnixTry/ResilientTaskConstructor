@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AdaptiveEnglishTrainer\AdaptiveEnglishTrainer.csproj" />
+    <ProjectReference Include="..\AdaptiveTaskConstructorDb\AdaptiveTaskConstructorDb.sqlproj" />
+    <ProjectReference Include="..\Component.Groups.PL\Component.Groups.PL.csproj" />
+    <ProjectReference Include="..\Component.TestCompletion.BLL\Component.TestCompletion.BLL.csproj" />
+    <ProjectReference Include="..\Component.TestManagement.BLL\Component.TestManagement.BLL.csproj" />
+    <ProjectReference Include="..\Component.TestManagement.PL\Component.TestManagement.PL.csproj" />
+    <ProjectReference Include="..\Infrastructure.DAL\Infrastructure.DAL.csproj" />
+  </ItemGroup>
+
+</Project>

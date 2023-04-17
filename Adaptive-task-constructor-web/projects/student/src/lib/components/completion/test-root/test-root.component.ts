@@ -5,7 +5,9 @@ import { CompletionFormService } from 'projects/service/src/lib/completion/servi
 import { TestCompletionService } from 'projects/service/src/lib/completion/service/testCompletion.service';
 import { Test } from 'projects/service/src/lib/test/entity/test';
 import { TestService } from 'projects/service/src/lib/test/service/test.service';
-import { switchMap, tap } from 'rxjs';
+import { switchMap, tap, combineLatest } from 'rxjs/operators';
+import { Buffer } from 'buffer';
+import { AuthenticationService } from 'projects/auth/src/lib/services/authentication.service';
 
 @Component({
   selector: 'lib-test-root',
@@ -50,5 +52,12 @@ export class TestRootComponent implements OnInit {
       this.router.navigate(['/student/result'], { queryParams: { attemptId: v.id } })
       console.log(v);
     });
+  }
+
+  onDebugQueue() {
+    this.completionService.checkTestAsync(this.attemptFrom.value)
+      .subscribe((response: any) => {
+        console.log(response);
+      });
   }
 }

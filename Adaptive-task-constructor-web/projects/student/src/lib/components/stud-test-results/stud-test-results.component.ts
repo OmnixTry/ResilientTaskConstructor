@@ -35,7 +35,7 @@ export class StudTestResultsComponent implements OnInit {
         }),
         tap(tests => {
           this.testResults = tests;
-          this.displayResults = this.testResults?.map(t => { return { ...t, date: this.datePipe.transform(t.date), score: t.score + '/' + t.maxScore } });
+          this.displayResults = this.testResults?.map(t => { return { ...t, date: this.datePipe.transform(t.date, "MMM dd, YYYY : HH:mm"), score: t.score + '/' + t.maxScore } });
         })
       )
       .subscribe();

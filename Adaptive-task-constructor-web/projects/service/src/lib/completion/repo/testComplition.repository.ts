@@ -15,6 +15,11 @@ export class TestCompletionRepo extends HttpRequestService {
         return this.makeAuthenticatedPost<Attempt>(`api/tests/${attempt.testId}/check`, attempt);
     }
 
+    sendForCheckAsync(attempt: Attempt) {
+        var route = this.beUrlService.checkMessengerUrlAddress + '/api/message';
+        return this.http.post<Attempt>(route, attempt, this.authOptions);
+    }
+
     updateTeacherCheck(attempt: Attempt) {
         return this.makeAuthenticatedPost<Attempt>(`api/tests/${attempt.testId}/results`, attempt);
     }

@@ -6,27 +6,35 @@ using Component.TestManagement.DAL.Contract;
 using Component.TestManagement.DAL.Entity;
 using Infrastructure.DAL.Contract;
 using Infrastructure.DAL.Entity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Component.TestManagement.BLL.Impl
 {
 	internal class TestService : ITestService
 	{
 		private readonly ITestMgmtUnitOfWork unitOfWork;
-		private readonly IUserProvider userProvider;
+		private readonly IServiceProvider provider;
+
+		//private readonly IUserProvider userProvider;
 		private readonly IMapper mapper;
 		private readonly ITestCompletionUnitOfWork completionUnitOfWork;
 
-		public TestService(ITestMgmtUnitOfWork unitOfWork, IUserProvider userProvider, IMapper mapper, ITestCompletionUnitOfWork completionUnitOfWork)
+		public TestService(ITestMgmtUnitOfWork unitOfWork,
+			IServiceProvider provider,
+			//IUserProvider userProvider, 
+			IMapper mapper, 
+			ITestCompletionUnitOfWork completionUnitOfWork)
 		{
 			this.unitOfWork = unitOfWork;
-			this.userProvider = userProvider;
+			this.provider = provider;
+			//this.userProvider = userProvider;
 			this.mapper = mapper;
 			this.completionUnitOfWork = completionUnitOfWork;
 		}
 
 		public List<TestDto> GetTestsSmall()
 		{
-			var tests = unitOfWork.TestRepository.GetAll(t => t.UserId == userProvider.GetUserId()).ToList();
+			var tests = unitOfWork.TestRepository.GetAll(t => t.UserId == GetUserProvider().GetUserId()).ToList();
 			var result = mapper.Map<List<TestDto>>(tests);
 			foreach (var item in result)
 			{
@@ -38,7 +46,7 @@ namespace Component.TestManagement.BLL.Impl
 		public TestDto GetFullTest(string testName)
 		{
 			var filter = new Filter<Test, int>();
-			filter.AddFilter(x => x.UserId == userProvider.GetUserId() && x.Name == testName);
+			filter.AddFilter(x => x.UserId == GetUserProvider().GetUserId() && x.Name == testName);
 
 			var test = unitOfWork.TestRepository
 				.GetFullTests(filter)
@@ -83,7 +91,7 @@ namespace Component.TestManagement.BLL.Impl
 			}
 
 			var entity = mapper.Map<Test>(test);
-			entity.UserId = userProvider.GetUserId();
+			entity.UserId = GetUserProvider().GetUserId();
 			FillAllowMultiple(entity);
 
 			unitOfWork.TestRepository.Add(entity);
@@ -97,7 +105,7 @@ namespace Component.TestManagement.BLL.Impl
 		public TestDto Update(TestDto test)
 		{
 			var entity = mapper.Map<Test>(test);
-			entity.UserId = userProvider.GetUserId();
+			entity.UserId = GetUserProvider().GetUserId();
 			FillAllowMultiple(entity);
 			unitOfWork.TestRepository.Update(entity);
 
@@ -125,7 +133,7 @@ namespace Component.TestManagement.BLL.Impl
 		public void Delete(string name)
 		{
 			var filter = new Filter<Test, int>();
-			filter.AddFilter(x => x.Name == name && x.UserId == userProvider.GetUserId());
+			filter.AddFilter(x => x.Name == name && x.UserId == GetUserProvider().GetUserId());
 
 			var test = unitOfWork.TestRepository.GetFullTests(filter).FirstOrDefault();
 			unitOfWork.TestRepository.Delete(test);
@@ -136,14 +144,14 @@ namespace Component.TestManagement.BLL.Impl
 		public bool IsNameUniqie(string name)
 		{
 			var filter = new Filter<Test, int>();
-			filter.AddFilter(x => x.UserId == userProvider.GetUserId() && x.Name == name);
+			filter.AddFilter(x => x.UserId == GetUserProvider().GetUserId() && x.Name == name);
 
 			return unitOfWork.TestRepository.GetCount(filter) == 0;
 		}
 
 		private List<TestDto> SearchTests(string name, string topic)
 		{
-			var tests = unitOfWork.TestRepository.GetAll(t => t.UserId == userProvider.GetUserId()).ToList();
+			var tests = unitOfWork.TestRepository.GetAll(t => t.UserId == GetUserProvider().GetUserId()).ToList();
 			var result = mapper.Map<List<TestDto>>(tests);
 			foreach (var item in result)
 			{
@@ -158,6 +166,11 @@ namespace Component.TestManagement.BLL.Impl
 			{
 				task.AllowMultiple = task.TaskOptions.Where(o => o.Correct).Count() > 1;
 			}
+		}
+
+		private IUserProvider GetUserProvider()
+		{
+			return provider.GetService<IUserProvider>();
 		}
 	}
 }

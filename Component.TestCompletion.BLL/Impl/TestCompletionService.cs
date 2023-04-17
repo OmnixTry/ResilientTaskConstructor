@@ -17,21 +17,21 @@ namespace Component.TestCompletion.BLL.Impl
 	{
 		private readonly ITestCompletionUnitOfWork completionUnitOfWork;
 		private readonly ITestMgmtUnitOfWork mgmtUnitOfWork;
-		private readonly IUserProvider userProvider;
+		//private readonly IUserProvider userProvider;
 		private readonly ITestService testService;
 		private readonly IGroupService groupService;
 		private readonly IMapper mapper;
 
 		public TestCompletionService(ITestCompletionUnitOfWork testCompletionUnitOfWork,
 			ITestMgmtUnitOfWork testMgmtUnitOfWork,
-			IUserProvider userProvider,
+			//IUserProvider userProvider,
 			ITestService testService,
 			IGroupService groupService,
 			IMapper mapper)
 		{
 			this.completionUnitOfWork = testCompletionUnitOfWork;
 			this.mgmtUnitOfWork = testMgmtUnitOfWork;
-			this.userProvider = userProvider;
+			//this.userProvider = userProvider;
 			this.testService = testService;
 			this.groupService = groupService;
 			this.mapper = mapper;
@@ -83,7 +83,7 @@ namespace Component.TestCompletion.BLL.Impl
 			attempt.Date = DateTime.Now;
 			attempt.Score = attempt.Tasks.Sum(t => t.Score);
 			var mappedAttempt = mapper.Map<Result>(attempt);
-			mappedAttempt.StudentId = userProvider.GetUserId();
+			//mappedAttempt.StudentId = userProvider.GetUserId();
 			mappedAttempt.TestId = testId;
 
 			completionUnitOfWork.ResultRepository.Add(mappedAttempt);

@@ -13,6 +13,7 @@ import { GroupService } from "projects/service/src/lib/group/service/group.servi
 export class AuthenticationService extends HttpRequestService {
     readonly isAuthenticated = new BehaviorSubject<boolean>(false);
     readonly tokenSubject = new BehaviorSubject<string>('');
+    readonly userIdSubject = new BehaviorSubject<string>('');
     readonly urlBase = 'api/Accounts/';
 
     constructor(http: HttpClient, beUrlService: BeUrlService, private groupService: GroupService) {
@@ -32,6 +33,10 @@ export class AuthenticationService extends HttpRequestService {
         return this.http.post<RegistrationResponse>(route, user)
     }
 
+    getUserId(): Observable<any> {
+        return this.makeAuthenticatedGet<any>(this.urlBase + 'current-user-id');
+    }
+
     logIn(user: AuthenticationUser) {
         let route = this.createRoute(this.urlBase + 'login');
         let request = this.http.post<AuthenticationResponse>(route, user);
@@ -40,6 +45,8 @@ export class AuthenticationService extends HttpRequestService {
                 localStorage.setItem("token", res.token)
                 this.isAuthenticated.next(true);
                 this.tokenSubject.next(res.token);
+
+                this.getUserId().subscribe(s => this.userIdSubject.next(s));
             }
         }));
     }

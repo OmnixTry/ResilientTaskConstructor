@@ -50,5 +50,11 @@ namespace Component.TestCompletion.PL.Controllers
 			return Ok(completionService.GetFullAttempt(resultId));
 		}
 
+		//[HttpGet("/api/results/currentUserId")]
+		//public IActionResult GetUserId(int resultId)
+		//{
+		//	var userId = userProvider.GetUserId();
+		//	return Ok(userId);
+		//}
 	}
 }

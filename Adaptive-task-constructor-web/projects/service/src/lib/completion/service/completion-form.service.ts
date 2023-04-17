@@ -18,7 +18,8 @@ export class CompletionFormService {
             id: [0],
             date: [null],
             testId: [test.id],
-            tasks: this.createTasksForm(test)
+            tasks: this.createTasksForm(test),
+            studentId: [null]
         });
     }
 

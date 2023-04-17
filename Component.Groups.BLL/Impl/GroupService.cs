@@ -5,6 +5,7 @@ using Component.Groups.DAL.Contract;
 using Component.Groups.DAL.Entity;
 using Component.TestManagement.DAL.Contract;
 using Infrastructure.DAL.Contract;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Component.Groups.BLL.Impl
 {
@@ -12,16 +13,23 @@ namespace Component.Groups.BLL.Impl
 	{
 		private readonly IGroupUnitOfWork unitOfWork;
 		private readonly IMapper mapper;
-		private readonly IUserProvider userProvider;
+		private readonly IServiceProvider provider;
+
+		//private readonly IUserProvider userProvider;
 		private readonly ITestMgmtUnitOfWork testMgmtUnitOfWork;
 		const string teacherRole = "Teacher";
 		const string studentRole = "Student";
 
-		public GroupService(IGroupUnitOfWork unitOfWork, IMapper mapper, IUserProvider userProvider, ITestMgmtUnitOfWork testMgmtUnitOfWork)
+		public GroupService(IGroupUnitOfWork unitOfWork, 
+			IMapper mapper,
+			IServiceProvider provider,
+			//IUserProvider userProvider, 
+			ITestMgmtUnitOfWork testMgmtUnitOfWork)
 		{
 			this.unitOfWork = unitOfWork;
 			this.mapper = mapper;
-			this.userProvider = userProvider;
+			this.provider = provider;
+			//this.userProvider = userProvider;
 			this.testMgmtUnitOfWork = testMgmtUnitOfWork;
 		}
 
@@ -45,12 +53,12 @@ namespace Component.Groups.BLL.Impl
 
 		public List<GroupDto> GetUserGroups(string userId)
 		{			
-			if (userProvider.CheckUserRole(teacherRole))
+			if (GetUserProvider().CheckUserRole(teacherRole))
 			{
 				return GetTeacherGroups(userId);
 			}
 
-			if (userProvider.CheckUserRole(studentRole))
+			if (GetUserProvider().CheckUserRole(studentRole))
 			{
 				return GetStudentGroups(userId);
 			}
@@ -204,7 +212,7 @@ namespace Component.Groups.BLL.Impl
 
 			var mappedGroup = new Group() { Id = group.Id, Name = group.Name, TeacherId = group.TeacherId }; // mapper.Map<Group>(group);
 
-			mappedGroup.TeacherId = userProvider.GetUserId();
+			mappedGroup.TeacherId = GetUserProvider().GetUserId();
 			mappedGroup.GroupStudents = MapGroupUsers(group, students);
 			//mappedGroup.Tests = null;
 
@@ -228,6 +236,11 @@ namespace Component.Groups.BLL.Impl
 				return groupUsers.Select(student => new GroupStudent() { StudentId = student.Id })
 				.ToList();
 			}			
+		}
+
+		private IUserProvider GetUserProvider()
+		{
+			return provider.GetService<IUserProvider>();
 		}
 	}
 }

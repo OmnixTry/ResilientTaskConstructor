@@ -11,7 +11,7 @@ namespace Component.TestCompletion.BLL.Dto
 	{
 		public int Id { get; set; }
 		public int? TaskOptionId { get; set; }
-		public OptionDto Option { get; set; }
+		public OptionDto? Option { get; set; }
 		public int TaskDtoId { get; set; }
 		public string? Value { get; set; }
 		public bool Corect { get; set; }

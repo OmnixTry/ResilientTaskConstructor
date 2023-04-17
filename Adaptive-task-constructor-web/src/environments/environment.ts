@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   //beUrl: 'https://adaptive-constructor-fe.herokuapp.com'
   //beUrl: 'https://localhost:44311'
-  beUrl: 'https://localhost:7034'
+  beUrl: 'https://localhost:7034',
+  checkMessengerUrl: 'https://localhost:7280'
 };
 
 /*
