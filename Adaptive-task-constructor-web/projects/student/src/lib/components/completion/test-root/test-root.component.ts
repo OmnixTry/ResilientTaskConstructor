@@ -57,6 +57,7 @@ export class TestRootComponent implements OnInit {
   onDebugQueue() {
     this.completionService.checkTestAsync(this.attemptFrom.value)
       .subscribe((response: any) => {
+        this.router.navigate(['/student']);
         console.log(response);
       });
   }
