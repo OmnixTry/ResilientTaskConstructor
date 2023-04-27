@@ -12,6 +12,15 @@
     <button mat-button (click)="onSubmit()">
         Submit Answer
     </button>
+    <br>
+    <br>
+    <br>
+    <br>
+    <label>For Lab Purposes Only</label><br>
+    <label>Send numerous requests</label>
+    <lib-form-field [control]="ddosQuantityFormControl" label="Request Quantity">
+        <input matInput [formControl]="ddosQuantityFormControl" />
+    </lib-form-field>
     <button mat-button (click)="onDebugQueue()">
         Debug QUEUE
     </button>

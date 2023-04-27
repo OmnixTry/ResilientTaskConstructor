@@ -14,11 +14,35 @@ namespace Component.TestCompletion.PL.Receiver.Controllers
 	public class MessageController : ControllerBase
 	{
 		IMongoCollection<AttemptDto> attemptCollection;
+		IModel channel;
 		public MessageController() 
 		{
 			MongoClient client = new MongoClient("mongodb://localhost:27017");
 			IMongoDatabase database = client.GetDatabase("TestCompletion");
 			attemptCollection = database.GetCollection<AttemptDto>("Attempts");
+
+			var factory = new ConnectionFactory
+			{
+				HostName = "localhost",
+				//Ssl = new SslOption()
+				//{
+				//	ServerName = "localhost",
+				//	Enabled = true
+				//},
+				RequestedHeartbeat = TimeSpan.FromSeconds(10)
+			};
+			//using var connection = factory.CreateConnection();
+			//using var channel = connection.CreateModel();
+
+			var connection = factory.CreateConnection();
+			IModel channel = connection.CreateModel();
+			channel.QueueDeclare(//queue: "AsyncCheckMessages",
+								 queue: "PeopleMessages",
+								 durable: false,
+								 exclusive: false,
+								 autoDelete: false,
+								 arguments: null);
+			this.channel = channel;
 		}
 		// GET: api/<MessageController>
 		[HttpGet]
@@ -40,9 +64,16 @@ namespace Component.TestCompletion.PL.Receiver.Controllers
 			value.AsyncCheckId = Guid.NewGuid().ToString();
 			attemptCollection.InsertOne(value);
 
-			var factory = new ConnectionFactory { HostName = "localhost" };
-			using var connection = factory.CreateConnection();
-			using var channel = connection.CreateModel();
+			//var factory = new ConnectionFactory { HostName = "localhost",
+			//	//Ssl = new SslOption()
+			//	//{
+			//	//	ServerName = "localhost",
+			//	//	Enabled = true
+			//	//},
+			//	RequestedHeartbeat = TimeSpan.FromSeconds(10)
+			//};
+			//using var connection = factory.CreateConnection();
+			//using var channel = connection.CreateModel();
 
 			channel.QueueDeclare(//queue: "AsyncCheckMessages",
 								 queue: "PeopleMessages",

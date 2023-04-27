@@ -18,6 +18,7 @@ namespace Component.TestCompetion.DAL.Entity
 		public int TestTaskId { get; set; }
 		public int ResultId { get; set; }
 		public int Score { get; set; }
+		public byte Hash { get; set; }
 		public ICollection<Answer> Answers { get; set; }
 
 		public ResultTask() { }

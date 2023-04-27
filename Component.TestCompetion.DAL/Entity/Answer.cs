@@ -19,6 +19,8 @@ namespace Component.TestCompetion.DAL.Entity
 		public int ResultTaskId { get; set; }
 		public string Value { get; set; }
 		public bool Corect { get; set; }
+		public byte Hash { get; set; }
+
 
 		public Answer() { }
 		public Answer(int Id_, int TaskOptionId_, int ResultTaskId_, string Value_, bool Corect_)

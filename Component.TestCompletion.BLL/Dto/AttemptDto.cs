@@ -15,6 +15,7 @@ namespace Component.TestCompletion.BLL.Dto
 		public string? StudentId { get; set; }
 		public int? Score { get; set; }
 		public int? MaxScore { get; set; }
+		public short Hash { get; set; }
 		public List<TaskDto>? Tasks { get; set; }
 
 		[BsonId]

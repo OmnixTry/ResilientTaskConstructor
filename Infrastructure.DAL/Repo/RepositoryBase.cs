@@ -7,19 +7,28 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
+using Infrastructure.DAL.Extension;
 
 namespace Infrastructure.DAL.Repo
 {
 	public class RepositoryBase<TEntity, Tid, TContext> : IRepository<TEntity, Tid> where TEntity : class, IEntity<Tid> where TContext : DbContext
 	{
-		protected virtual DbSet<TEntity> Set { get => dbContext.Set<TEntity>(); }
+		protected virtual DbSet<TEntity> Set 
+		{ 
+			get  
+			{
+				dbContext.ApplyConnectionString(connectionStringProvider.GetConnectionString());
+				return dbContext.Set<TEntity>();
+			}
+		}
 
 		protected readonly TContext dbContext;
+		private readonly ConnectionStringProvider connectionStringProvider;
 
-		public RepositoryBase(TContext dbContext)
+		public RepositoryBase(TContext dbContext, ConnectionStringProvider connectionStringProvider)
 		{
 			this.dbContext = dbContext;
+			this.connectionStringProvider = connectionStringProvider;
 		}
 
 		public virtual void Add(TEntity entity)

@@ -10,6 +10,7 @@ using Component.TestManagement.DAL.Contract;
 using Component.TestManagement.DAL.Entity;
 using Infrastructure.DAL.Contract;
 using Infrastructure.DAL.Entity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Component.TestCompletion.BLL.Impl
 {
@@ -21,13 +22,15 @@ namespace Component.TestCompletion.BLL.Impl
 		private readonly ITestService testService;
 		private readonly IGroupService groupService;
 		private readonly IMapper mapper;
+		private readonly IServiceProvider serviceProvider;
 
 		public TestCompletionService(ITestCompletionUnitOfWork testCompletionUnitOfWork,
 			ITestMgmtUnitOfWork testMgmtUnitOfWork,
 			//IUserProvider userProvider,
 			ITestService testService,
 			IGroupService groupService,
-			IMapper mapper)
+			IMapper mapper,
+			IServiceProvider serviceProvider)
 		{
 			this.completionUnitOfWork = testCompletionUnitOfWork;
 			this.mgmtUnitOfWork = testMgmtUnitOfWork;
@@ -35,6 +38,7 @@ namespace Component.TestCompletion.BLL.Impl
 			this.testService = testService;
 			this.groupService = groupService;
 			this.mapper = mapper;
+			this.serviceProvider = serviceProvider;
 		}
 
 		public List<AttemptDto> GetAttemptsByStudent(int testId, string userId)
@@ -83,8 +87,11 @@ namespace Component.TestCompletion.BLL.Impl
 			attempt.Date = DateTime.Now;
 			attempt.Score = attempt.Tasks.Sum(t => t.Score);
 			var mappedAttempt = mapper.Map<Result>(attempt);
-			//mappedAttempt.StudentId = userProvider.GetUserId();
+			if(attempt.StudentId == null)
+				mappedAttempt.StudentId = serviceProvider.GetService<IUserProvider>().GetUserId();
 			mappedAttempt.TestId = testId;
+			
+			FillHashes(mappedAttempt);
 
 			completionUnitOfWork.ResultRepository.Add(mappedAttempt);
 			completionUnitOfWork.Save();
@@ -129,6 +136,21 @@ namespace Component.TestCompletion.BLL.Impl
 			}).ToArray();
 
 			return studRes;
+		}
+
+		private void FillHashes(Result attempt)
+		{
+			byte code = (byte)Math.Abs(attempt.StudentId.GetHashCode() % 4);
+			attempt.Hash = code;
+			foreach (var task in attempt.ResultTasks)
+			{
+				task.Hash = code;
+			}
+
+			foreach (var answer in attempt.ResultTasks.SelectMany(t => t.Answers))
+			{
+				answer.Hash = code;
+			}
 		}
 
 		private void FillMaxScores(List<AttemptDto> attempts) 

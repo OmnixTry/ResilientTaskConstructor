@@ -4,5 +4,6 @@
 	[TaskOptionId] INT NULL FOREIGN KEY REFERENCES [test].[TaskOption](Id) ON DELETE CASCADE,
 	[ResultTaskId] INT NULL FOREIGN KEY REFERENCES [res].[ResultTask](Id) ON DELETE CASCADE,
 	[Value] NVARCHAR(MAX) NULL,
-	[Corect] BIT NOT NULL
+	[Corect] BIT NOT NULL,
+	[Hash] TINYINT NOT NULL default(3),
 )

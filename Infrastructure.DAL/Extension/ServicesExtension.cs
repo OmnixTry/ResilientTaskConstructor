@@ -31,9 +31,17 @@ namespace Infrastructure.DAL.Extension
 				var implementationType = typeof(RepositoryBase<,,>).MakeGenericType(new[] { item.Type, idType, item.Attributes.First().DbContextType });
 				serviceDescriptors.AddTransient(interfaceType, implementationType);
 			}
-			
+
 			//var t = typeof(int);
 			//builder.Services.AddTransient(typeof(IRepository<,>).MakeGenericType(new[] { typeof(TestTask), typeof(int) }), typeof(RepositoryBase<,,>).MakeGenericType(new[] { typeof(TestTask), typeof(int), typeof(TestManagementContext) }));
+
+
+
+		}
+
+		public static void RegisterConnectionStrings(this IServiceCollection serviceDescriptors, params string[] strings)
+		{
+			serviceDescriptors.AddTransient<ConnectionStringProvider>(s => new ConnectionStringProvider(strings));
 		}
 	}
 }

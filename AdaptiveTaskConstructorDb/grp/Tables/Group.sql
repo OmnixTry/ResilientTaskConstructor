@@ -2,7 +2,7 @@
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY,
 	[Name] NVARCHAR(450) NOT NULL,
-	[TeacherId] NVARCHAR(450) NOT NULL FOREIGN KEY REFERENCES [dbo].[AspNetUsers](Id),
+	[TeacherId] NVARCHAR(450) NOT NULL, -- FOREIGN KEY REFERENCES [dbo].[AspNetUsers](Id),
 
 	CONSTRAINT UC_TeacherGroup UNIQUE ([Name], [TeacherId]) 
 )

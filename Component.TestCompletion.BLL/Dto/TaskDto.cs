@@ -13,6 +13,7 @@ namespace Component.TestCompletion.BLL.Dto
 		public int TaskId { get; set; }
 		public int AttemptId { get; set; }
 		public int Score { get; set; }
+		public short Hash { get; set; }
 		public TestTaskDto? Task { get; set; }
 		public List<AnswerDto>? Answers { get; set; }
 	}

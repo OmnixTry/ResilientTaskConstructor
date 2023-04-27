@@ -15,5 +15,6 @@ namespace Component.TestCompletion.BLL.Dto
 		public int TaskDtoId { get; set; }
 		public string? Value { get; set; }
 		public bool Corect { get; set; }
+		public short Hash { get; set; }
 	}
 }

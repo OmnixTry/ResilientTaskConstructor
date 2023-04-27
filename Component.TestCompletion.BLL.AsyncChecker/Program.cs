@@ -31,7 +31,8 @@ var serviceProvider = serviceCollection.BuildServiceProvider();
 var testCheckService = serviceProvider.GetService<ITestCompletionService>();
 
 
-var factory = new ConnectionFactory { HostName = "localhost" };
+var factory = new ConnectionFactory { HostName = "localhost", RequestedHeartbeat = TimeSpan.FromSeconds(10)
+};
 using var connection = factory.CreateConnection();
 using var channel = connection.CreateModel();
 

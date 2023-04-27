@@ -80,6 +80,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.RegisterAuthServices();
 string connectionString = builder.Configuration.GetConnectionString("sqlConnection");
+string connectionString2 = builder.Configuration.GetConnectionString("sqlConnection2");
+builder.Services.RegisterConnectionStrings(connectionString, connectionString2);
 builder.Services.RegisterEfRepositories();
 builder.Services.RegisterDAL(connectionString);
 builder.Services.RegisterGroupsDAL(connectionString);
